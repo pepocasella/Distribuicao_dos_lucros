@@ -36,13 +36,18 @@ Peso 5: Mais de 8 anos
 
 
 Equação:
-    bonus = (((salario_bruto * peso_tempo_adimissao) + (peso_salario_bruto * peso_area))/(salario_bruto * peso_faixa_salarial))*12
-
+    bonus = (((salario_bruto * peso_tempo_adimissao) + (peseo_faixa_salarial * peso_area))/(salario_bruto * peso_faixa_salarial))*12
 Retorno:
     
 """
+
+#bibliotecas importadas
+import datetime
 from classe_funcionarios import Funcionarios 
 from xlrd import open_workbook
+
+#variaveis
+lista_bonus = []
 
 if __name__== "__main__":
     
@@ -56,40 +61,67 @@ if __name__== "__main__":
             print(sheet.cell_value(row,columns))
     print(sheet.row_values(1))
     
+    
+    for i in range(1,sheet.nrows): 
+        
     #------------instanciando meus objetos = funcionarios----------------------
     
-    funcionario_1 = Funcionarios(sheet.row_values(1)[0],sheet.row_values(1)[1],
-                                 sheet.row_values(1)[2],sheet.row_values(1)[3],
-                                 sheet.row_values(1)[4],sheet.row_values(1)[5])
-    
-    funcionario_2 = Funcionarios(sheet.row_values(2)[0],sheet.row_values(2)[1],
-                                 sheet.row_values(2)[2],sheet.row_values(2)[3],
-                                 sheet.row_values(2)[4],sheet.row_values(2)[5])
-    
-    funcionario_3 = Funcionarios(sheet.row_values(3)[0],sheet.row_values(3)[1],
-                                 sheet.row_values(3)[2],sheet.row_values(3)[3],
-                                 sheet.row_values(3)[4],sheet.row_values(3)[5])
+        funcionario = Funcionarios(sheet.row_values(i)[0],sheet.row_values(i)[1],
+                                 sheet.row_values(i)[2],sheet.row_values(i)[3],
+                                 sheet.row_values(i)[4],sheet.row_values(i)[5],
+                                 sheet.row_values(i)[6],sheet.row_values(i)[7])
     
     #----------------------levantamento dos pesos da equação-------------------
+
+        #pesos por area
+        tabela_pesos_area = {"Diretoria":1,
+                        "Contabilidade":2,
+                        "Financeiro":2,
+                        "Tecnologia":2,
+                        "Serviços Gerais":3,
+                        "Relacionamento com o Cliente":5}
+        
+        #pesos por salario
+        salario_minimo = 1006
+        
+        if funcionario.salario_bruto > 8*salario_minimo:
+            peso_faixa_salarial = 5
+        elif funcionario.salario_bruto < 8*salario_minimo and funcionario.salario_bruto > 5*salario_minimo:
+            peso_faixa_salarial = 3
+        elif funcionario.salario_bruto < 5*salario_minimo and funcionario.salario_bruto > 3*salario_minimo:
+            peso_faixa_salarial = 2
+        else:
+            peso_faixa_salarial = 1
+        
+        #pesos por tempo
+        
+        ano_atual = datetime.date.today().year
+        anos_de_casa = ano_atual - funcionario.ano_de_admissao
+        
+        if anos_de_casa > 8:
+            peso_tempo_adimissao = 5
+        elif anos_de_casa > 3 and anos_de_casa < 8:
+            peso_tempo_adimissao = 3
+        elif anos_de_casa > 1 and anos_de_casa < 3:
+            peso_tempo_adimissao = 2
+        elif anos_de_casa <= 1:
+            peso_tempo_adimissao = 1
     
-    #pesos por area
-    tabela_pesos_area = {"Diretoria":1,
-                    "Contabilidade":2,
-                    "Financeiro":2,
-                    "Tecnologia":2,
-                    "Serviços Gerais":3,
-                    "Relacionamento com o Cliente":5}
     
-    #pesos por salario
-    salario_minimo = 1006
+        #-----------------------------equação do bonus-----------------------------
+        
+        bonus = (((funcionario.salario_bruto*peso_tempo_adimissao)+
+                (funcionario.salario_bruto*tabela_pesos_area[funcionario.area]))
+                /(funcionario.salario_bruto*peso_faixa_salarial))*12
+        
+        print(bonus)
+        lista_bonus.append(bonus)
+
+        #---------------Adicionando no banco de dados excel--------------------
+        
+        
     
-    if funcionario.salario_bruto > 8*salario_minimo:
-        peso_salario_bruto = 5
-    elif funcionario.salario_bruto < 8*salario_minimo and funcionario.salario_bruto > 5*salario_minimo:
-        peso_salario_bruto = 3
-    elif funcionario.salario_bruto < 5*salario_minimo and funcionario.salario_bruto > 3*salario_minimo:
-        peso_salario_bruto = 2
-    else:
-        peso_salario_bruto = 1
     
-    #pesos por tempo
+    
+    
+    
