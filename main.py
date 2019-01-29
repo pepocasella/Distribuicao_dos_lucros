@@ -45,26 +45,43 @@ Retorno:
 import datetime
 from classe_funcionarios import Funcionarios 
 from xlrd import open_workbook
+import xlwt 
+
 
 #variaveis
 lista_bonus = []
+lista_nomes = []
+lista_matricula = []
 
 if __name__== "__main__":
+    
+    #------------------     Inicio do Programa     ----------------------------
+    
+    # alinha a direita com 20 espaços em branco
+    t1 ='----------------------------------'
+    s = 'Software - Distribuição dos lucros'
+    t2 ='----------------------------------'
+    print("{0:>20}".format(t1))
+    print("{0:>20}".format(s))
+    print("{0:>20}".format(t2))
+    print()
+    total_disponibilizado = float(input("Qual o total diponibilizado?: "))
+    
     
     #---------------leitura do banco de dados excel----------------------------
     
     wb = open_workbook('banco_dados_funcionarios.xlsx')
     sheet = wb.sheet_by_index(0)
         
-    for row in range(1,sheet.nrows):
-        for columns in range(0,sheet.ncols):
-            print(sheet.cell_value(row,columns))
-    print(sheet.row_values(1))
+    #for row in range(1,sheet.nrows):
+        #for columns in range(0,sheet.ncols):
+            #print(sheet.cell_value(row,columns))
+    #print(sheet.row_values(1))
     
-    
+
     for i in range(1,sheet.nrows): 
         
-    #------------instanciando meus objetos = funcionarios----------------------
+    #------------  instanciando  objetos = funcionarios  ----------------------
     
         funcionario = Funcionarios(sheet.row_values(i)[0],sheet.row_values(i)[1],
                                  sheet.row_values(i)[2],sheet.row_values(i)[3],
@@ -94,9 +111,10 @@ if __name__== "__main__":
             peso_faixa_salarial = 1
         
         #pesos por tempo
-        
         ano_atual = datetime.date.today().year
-        anos_de_casa = ano_atual - funcionario.ano_de_admissao
+        mes_atual = datetime.date.today().month
+        dia_atual = datetime.date.today().day
+        anos_de_casa = (ano_atual - funcionario.ano_de_admissao) - (1-funcionario.mes_de_admissao/12)
         
         if anos_de_casa > 8:
             peso_tempo_adimissao = 5
@@ -108,19 +126,52 @@ if __name__== "__main__":
             peso_tempo_adimissao = 1
     
     
-        #-----------------------------equação do bonus-----------------------------
+    #-----------------------------equação do bonus-------------------------
         
         bonus = (((funcionario.salario_bruto*peso_tempo_adimissao)+
                 (funcionario.salario_bruto*tabela_pesos_area[funcionario.area]))
                 /(funcionario.salario_bruto*peso_faixa_salarial))*12
         
-        print(bonus)
+        #print(bonus)
         lista_bonus.append(bonus)
+        lista_nomes.append(funcionario.nome)
+        lista_matricula.append(funcionario.matricula)
+        
+   #---------------Adicionando no banco de dados excel--------------------
+   
+wb2 = xlwt.Workbook()
+ws = wb2.add_sheet('Planilha bonus')
+ws.write(0, 0, 'Matricula') 
+ws.write(0, 1, 'Nome')   
+ws.write(0,2,'Bonus')
+ 
+for i in range(len(lista_bonus)):
+    ws.write(i+1,2,lista_bonus[i])
+    ws.write(i+1,1,lista_nomes[i])
+    ws.write(i+1,0,lista_matricula[i])
+    wb2.save('Planilha_bonus.xls')
+        
+        
+    #---------------------------Calculos totais----------------------------
+   
+total_de_funcionarios = len(lista_nomes)    
+total_distribuido = sum(lista_bonus)
+saldo_total_disponibilizado = total_disponibilizado - total_distribuido
 
-        #---------------Adicionando no banco de dados excel--------------------
-        
-        
-    
+print()        
+print()
+t3 ='--------------------------------------'
+s1 = 'Detalhes do Retorno:'
+t4 ='--------------------------------------'
+print("{0:>20}".format(t3))
+print("{0:>20}".format(s1))
+print()
+print('total de funcionarios:',total_de_funcionarios)
+print('total distribuido:',total_distribuido)
+print('total disponibilizado:',total_disponibilizado)
+print('saldo total disponibilizado:',saldo_total_disponibilizado)
+print("{0:>20}".format(t4))
+print()
     
     
     
