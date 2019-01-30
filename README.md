@@ -1,6 +1,6 @@
 # Distribuição dos lucros (desafio Stone Pagamentos)
 
-![](imagens/filename icon_stone)
+![](icon_stone)
 
 Uma empresa fechou o ano de operação com lucro e deseja reparti-lo entre seus funcionários, com o objetivo de ser justa criou uma regra para a distribuição deste montante por: área, tempo de empresa, e faixa salarial (os funcionários que ganham menos teriam sua participação incrementada). Para isso foi solicitado ao time de tecnologia que desenvolva uma API REST que receba um valor máximo para distribuir e distribua o montante para os funcionários já cadastrados com os dados abaixo. Tal distribuição segue determinadas regras descritas a seguir
 
@@ -26,4 +26,4 @@ Peso 5: Mais de 8 anos
 
 #fluxo grama do código
 
-![](imagens/filename Stone_pagamentos)
+![](Stone_pagamentos)
