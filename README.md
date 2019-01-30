@@ -26,4 +26,5 @@ Peso 5: Mais de 8 anos
 
 #fluxo grama do código
 
-![](Stone_pagamentos)
+![blank diagram](https://user-images.githubusercontent.com/11545292/51984055-7e4f0600-2481-11e9-886f-64fd2d980536.png)
+
