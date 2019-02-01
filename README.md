@@ -1,4 +1,4 @@
-# Distribuição dos lucros (desafio Stone Pagamentos)
+- # Distribuição dos lucros (desafio Stone Pagamentos)
 
 ![stone_pagamentos](https://user-images.githubusercontent.com/11545292/51984146-c2daa180-2481-11e9-8dd4-6317ee169e30.png)
 
@@ -27,7 +27,7 @@ Foi estabelecido um peso por tempo de admissão:
 - Peso 5: Mais de 8 anos
 
 
-## fluxo grama do código
+- # fluxo grama do código
 
 ![blank diagram 1](https://user-images.githubusercontent.com/11545292/52016818-bdef0f80-24cc-11e9-944d-34d19d184ebf.png)
 
