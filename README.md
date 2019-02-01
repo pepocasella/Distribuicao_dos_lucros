@@ -35,15 +35,19 @@ Foi estabelecido um peso por tempo de admissão:
 # Descritivo dos arquivos relevantes
 
 - main:
+
 O arquivo main.py engloba todas as funções utilizadas e faz o uso da classe_funcionarios.py para instaciar os objetos e realizar operações com estes. O fluxograma ilustrado abaixo descreve com bastante detalhe o passo senquancial lógico por tras da função main
 
-- classe_funcionarios
+- classe_funcionarios:
+
 O arquivo classe_funcionarios.py armazena todos os atributos idealizados para o objeto funcionario e possiveis métodos vinculados a classe
 
-- banco_de_dados_funcionarios.xlsx
+- banco_de_dados_funcionarios.xlsx:
+
 O arquivo em excel banco_de_dados_funcionarios.xlsx é input do programa Distribuição de Lucros com os dados relavantes dos funcionarios da empresa (matricula, nome, area, cargo, salario_bruto, data_de_admissao)
 
-- Planilha_bonus.xls
+- Planilha_bonus.xls:
+
 O arquivo em excel Planilha_bonus.xls é output do programa Distribuição de Lucros com os dados estipulados para retorno (matricula, nome, valor da participação) 
 
 # Fluxograma do código
