@@ -18,17 +18,7 @@ class Funcionarios:
         self.ano_de_admissao = ano_de_admissao
         self.mes_de_admissao = mes_de_admissao
         self.dia_de_admissao = dia_de_admissao
-        
-    def calcula_parametros(self,data_de_admissao):
-        return 
+
     
 
-    def calcula_bonus(self):
-        bonus = (((salario_bruto*peso_tempo_adimissao)+(peso_salario_bruto*peso_area))/(salario_bruto*peso_faixa_salarial))*12
-        return
-    
-    def save(self):
-        self.__class__.seq += 1
-        self.id = self.__class__.seq
-        self.__class__.objects.append(self)
-    
+   

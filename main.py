@@ -43,15 +43,49 @@ Retorno:
 
 #bibliotecas importadas
 import datetime
+from time import sleep
 from classe_funcionarios import Funcionarios 
 from xlrd import open_workbook
 import xlwt 
-
+import sys
 
 #variaveis
 lista_bonus = []
 lista_nomes = []
 lista_matricula = []
+
+
+def finish():
+    
+    print()        
+    print()
+    t3 ='--------------------------------------'
+    s1 = 'Detalhes do Retorno:'
+    t4 ='--------------------------------------'
+    print("{0:>20}".format(t3))
+    print("{0:>20}".format(s1))
+    print()
+    print('total de funcionarios:',total_de_funcionarios)
+    print('total distribuido: %8.2f'% (total_distribuido))
+    print('total disponibilizado:',total_disponibilizado)
+    print('saldo total disponibilizado:',saldo_total_disponibilizado)
+    print("{0:>20}".format(t4))
+    print()
+    print('-------------------------------------------------------------------')
+    print('O arquivo Planilha bonus foi criado com os bonus dos funcionarios')
+    print()
+    print('Obrigado por escolher Distribuicao de lucros --- Stone Pagamentos')
+    print('-------------------------------------------------------------------')
+    print()
+    print()
+    input('Precione ENTER para fechar: ')
+    print()
+    print('...Ate a proxima...')
+    sleep(1)
+    print()
+    sleep(2)
+    sys.exit
+
 
 if __name__== "__main__":
     
@@ -158,21 +192,5 @@ total_de_funcionarios = len(lista_nomes)
 total_distribuido = sum(lista_bonus)
 saldo_total_disponibilizado = total_disponibilizado - total_distribuido
 
-print()        
-print()
-t3 ='--------------------------------------'
-s1 = 'Detalhes do Retorno:'
-t4 ='--------------------------------------'
-print("{0:>20}".format(t3))
-print("{0:>20}".format(s1))
-print()
-print('total de funcionarios:',total_de_funcionarios)
-print('total distribuido:',total_distribuido)
-print('total disponibilizado:',total_disponibilizado)
-print('saldo total disponibilizado:',saldo_total_disponibilizado)
-print("{0:>20}".format(t4))
-print()
-    
-    
-    
+finish()
     
