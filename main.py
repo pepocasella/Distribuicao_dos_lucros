@@ -53,7 +53,14 @@ import sys
 lista_bonus = []
 lista_nomes = []
 lista_matricula = []
+lista_anos_de_casa = []
 
+lista_bonus_numeros = []
+lista_bonus_repeticao = []
+
+#listas para levantamento do bonus em R$
+lista_rank_bonus = []
+lista_bonus_reais = []
 
 def finish():
     
@@ -66,9 +73,9 @@ def finish():
     print("{0:>20}".format(s1))
     print()
     print('total de funcionarios:',total_de_funcionarios)
-    print('total distribuido: %8.2f'% (total_distribuido))
-    print('total disponibilizado:',total_disponibilizado)
-    print('saldo total disponibilizado:',saldo_total_disponibilizado)
+    print('total distribuido: R$%8.2f'% (total_distribuido))
+    print('total disponibilizado: R$%8.2f'%(total_disponibilizado))
+    print('saldo total disponibilizado: R$%8.2f'%(saldo_total_disponibilizado))
     print("{0:>20}".format(t4))
     print()
     print('-------------------------------------------------------------------')
@@ -148,7 +155,11 @@ if __name__== "__main__":
         ano_atual = datetime.date.today().year
         mes_atual = datetime.date.today().month
         dia_atual = datetime.date.today().day
-        anos_de_casa = (ano_atual - funcionario.ano_de_admissao) - (1-funcionario.mes_de_admissao/12)
+        #meses_de_casa = (ano_atual - funcionario.ano_de_admissao)*12 - (1-funcionario.mes_de_admissao/12)
+        
+        dias_de_casa = (ano_atual-funcionario.ano_de_admissao)*365-funcionario.mes_de_admissao*30-funcionario.dia_de_admissao
+        anos_de_casa = dias_de_casa/365
+        
         
         if anos_de_casa > 8:
             peso_tempo_adimissao = 5
@@ -167,30 +178,67 @@ if __name__== "__main__":
                 /(funcionario.salario_bruto*peso_faixa_salarial))*12
         
         #print(bonus)
+        lista_anos_de_casa.append(anos_de_casa)
         lista_bonus.append(bonus)
         lista_nomes.append(funcionario.nome)
         lista_matricula.append(funcionario.matricula)
         
+
+    #--------------------------- Idealização do bonus-----------------------
+    
+numero_de_pessoas = 0
+    
+for n in range(0,len(lista_bonus)):
+   #loop para pegar o elemento da lista
+   for m in range(0,len(lista_bonus)):
+       #loop para checar o elemento da lista pego e checar com os outros
+       lista_bonus_ordem = sorted(lista_bonus)
+       if lista_bonus_ordem[n] != lista_bonus_ordem[n-1]:
+           if lista_bonus_ordem[n] == lista_bonus[m]:
+              numero_de_pessoas = numero_de_pessoas+1      
+   lista_bonus_numeros.append(lista_bonus_ordem[n])
+   lista_bonus_repeticao.append(numero_de_pessoas)
+   numero_de_pessoas = 0  
+
+for e in range(0,lista_bonus_repeticao.count(0)):    
+    lista_bonus_repeticao.remove(0)
+lista_bonus_ordem = list(set(lista_bonus_ordem))
+
+soma_bonus = sum(lista_bonus)
+
+for j in range(0,len(lista_bonus)):
+    lista_rank_bonus.append(lista_bonus[j]/soma_bonus)
+    
+for j in range(0,len(lista_rank_bonus)):    
+    lista_bonus_reais.append(lista_rank_bonus[j]*total_disponibilizado)
+
+total_de_funcionarios = len(lista_nomes)    
+total_distribuido = sum(lista_bonus_reais)
+saldo_total_disponibilizado = total_disponibilizado - total_distribuido
+
+razao = max(lista_bonus_ordem)/min(lista_bonus_ordem)
+parcela = total_disponibilizado/total_de_funcionarios
+
+
    #---------------Adicionando no banco de dados excel--------------------
    
 wb2 = xlwt.Workbook()
 ws = wb2.add_sheet('Planilha bonus')
 ws.write(0, 0, 'Matricula') 
 ws.write(0, 1, 'Nome')   
-ws.write(0,2,'Bonus')
- 
+ws.write(0,2,'Bonus - Rank')
+ws.write(0,3,'% Bonus')
+ws.write(0,4,'Bonus R$')
+ws.write(0,5,'Tempo Trabalhado')
+
 for i in range(len(lista_bonus)):
+    ws.write(i+1,5,lista_anos_de_casa[i])
+    ws.write(i+1,4,lista_bonus_reais[i])
+    ws.write(i+1,3,lista_rank_bonus[i])
     ws.write(i+1,2,lista_bonus[i])
     ws.write(i+1,1,lista_nomes[i])
     ws.write(i+1,0,lista_matricula[i])
     wb2.save('Planilha_bonus.xls')
-        
-        
-    #---------------------------Calculos totais----------------------------
-   
-total_de_funcionarios = len(lista_nomes)    
-total_distribuido = sum(lista_bonus)
-saldo_total_disponibilizado = total_disponibilizado - total_distribuido
-
+  
 finish()
     
