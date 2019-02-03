@@ -56,7 +56,11 @@ O arquivo Distribuição Lucros.exe é o arquivo executavel do programa
 
 # Fluxograma do código
 
-- Descrição do funcionamento: ao inicializar o aplictivo "Distribuição de lucros" uma janela estilo prompt de comando será aberta com o nome do programa e um input sendo pedido para o software. Esse input é o total diponibilizado para bonus dos funcionarios. O software, em seguida, irá disponibilizar ainda via prompt de comando informácoes calculadas sobre o total distribuido, total disponibilizado e saldo total disponibilizado. Alem disso, apos ter inputado aquela informação, na pasta onde esta o arquivo executalvel é feito a criação de uma plani;ha em Excel com as informações de retorno do software: mtricula, nome, bonus. O programa realiza um popup com a mensagem de "click ENTER para finalizar o programa" e em seguida caso a tecla ENTER seja precionada o programa fecha.
+- Descrição do funcionamento: ao inicializar o aplictivo "Distribuição de lucros" uma janela estilo prompt de comando será aberta com o nome do programa e um input sendo pedido para o software. Esse input é o total diponibilizado para bonus dos funcionarios. 
+![image](https://user-images.githubusercontent.com/11545292/52171259-f72fb580-2740-11e9-9811-6813f19d3ffc.png)
+O software, em seguida, irá disponibilizar ainda via prompt de comando informações calculadas sobre o total distribuido, total disponibilizado e saldo total disponibilizado.
+![image](https://user-images.githubusercontent.com/11545292/52171266-10386680-2741-11e9-8618-ad883ed52656.png)
+Alem disso, apos ter inputado aquela informação, na pasta onde esta o arquivo executalvel é feito a criação de uma plani;ha em Excel com as informações de retorno do software: mtricula, nome, bonus. O programa realiza um popup com a mensagem de "click ENTER para finalizar o programa" e em seguida caso a tecla ENTER seja precionada o programa fecha.
 
 
 ![blank diagram 1](https://user-images.githubusercontent.com/11545292/52016818-bdef0f80-24cc-11e9-944d-34d19d184ebf.png)
