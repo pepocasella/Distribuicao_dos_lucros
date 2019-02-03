@@ -50,7 +50,7 @@ O arquivo em excel banco_de_dados_funcionarios.xlsx é input do programa Distrib
 
 O arquivo em excel Planilha_bonus.xls é output do programa Distribuição de Lucros com os dados estipulados para retorno (matricula, nome, valor da participação) 
 
-Distribuição Lucros.exe:
+- Distribuição Lucros.exe:
 
 O arquivo Distribuição Lucros.exe é o arquivo executavel do programa
 
